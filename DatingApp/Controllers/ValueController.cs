@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
+    [Authorize] // all requests in this value controller now will respond only if authirized
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -27,10 +29,11 @@ namespace DatingApp.API.Controllers
         }
 
         // GET api/values/5
+        [AllowAnonymous] // we don't need to be authorized and send token to get value by id
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {
-            var value = _context.Values.FirstOrDefaultAsync(el => el.Id == id);
+            var value = await _context.Values.FirstOrDefaultAsync(el => el.Id == id);
             return Ok(value);
         }
 
