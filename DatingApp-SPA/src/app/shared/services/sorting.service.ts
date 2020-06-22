@@ -6,14 +6,56 @@ import { Injectable } from '@angular/core';
 export class SortingService {
 
   constructor() { }
-  public sum(arr: Array<number>): number { // суммирование элементов массива, при каждой
-    if (arr.length <= 0) {return 0; }         // итерации, которого, кол-во элементов массива уменьшается на 1
-    if (arr.length === 1) { return arr[0]; }
-    else {
-      const firstEl = arr[0];
-      arr.shift();
-      return firstEl + this.sum(arr);
+  public swap(arr, firstIndex, secondIndex) {
+    const temp = arr[firstIndex];
+    arr[firstIndex] = arr[secondIndex];
+    arr[secondIndex] = temp;
+  }
+  private partition(arr, left, right) {
+    let pivot = (left + right) >> 1;
+    let l = left;
+    let r = right;
+    while (l <= r) {
+      while(arr[l] < arr[pivot]) {
+        l ++;
+      }
+      while(arr[r] > arr[pivot]) {
+        r--;
+      }
+      if (l <= r) {
+        this.swap(arr, l, r);
+        l++;
+        r--;
+      }
     }
+    return l;
+  }
+
+  public badQsort(arr, left = 0, right = arr.length - 1) {
+    let index;
+    if (arr.length < 2) { return arr; }
+    index = this.partition(arr, left, right);
+    if(left < index - 1) {
+      this.badQsort(arr, left, index - 1);
+    }
+    if (index < right) {
+      this.badQsort(arr, index, right);
+    }
+    return arr;
+  }
+  public qsort(arr) {
+    if(arr.length < 2) {return arr; }
+    let pivot = arr[arr.length >> 1];
+    const lesser = [];
+    const greater = [];
+    arr.splice(arr.indexOf(pivot), 1);
+    arr = [pivot].concat(arr);
+    for(let i = 1; i < arr.length; i ++) {
+      if (arr[i] < pivot) {
+        lesser.push(arr[i]);
+      } else greater.push(arr[i]);
+    }
+    return this.qsort(lesser).concat(pivot, this.qsort(greater));
   }
 
 }
