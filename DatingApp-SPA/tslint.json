@@ -129,6 +129,23 @@
         "check-typecast"
       ]
     },
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "case-insensitive",
+        "named-imports-order": "case-insensitive",
+        "grouped-imports": true,
+        "groups": [
+          { "match": "^@angular", "order": 10 },
+          { "match": "^@", "order": 20 },
+          { "match": "^@app", "order": 40 },
+          { "match": "^@shared", "order": 50 },
+          { "name": "parent_dir", "match": "^[.][.]", "order": 60 },
+          { "name": "current dir", "match": "^[.]", "order": 70 },
+          { "match": "", "order": 30 }
+        ]
+      }
+    ],
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
