@@ -1,0 +1,18 @@
+<form [formGroup]="form" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Sign Up</h2>
+  <hr>
+
+  <label class="form-group d-block">
+    <input type="text" class="form-control" formControlName="username" placeholder="Username">
+  </label>
+
+  <label class="form-group d-block">
+    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+  </label>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="!form.valid" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+
+</form>
