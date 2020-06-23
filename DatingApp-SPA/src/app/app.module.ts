@@ -11,6 +11,7 @@ import {DefaultComponent} from './default/default.component';
 import {HomeComponent} from './home/home.component';
 import {NavComponent} from './layout/nav/nav.component';
 import {RegisterComponent} from './register/register.component';
+import {ErrorInterceptorProvider} from "@shared/interceptors/error.interceptor";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,10 @@ import {RegisterComponent} from './register/register.component';
     SharedModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
