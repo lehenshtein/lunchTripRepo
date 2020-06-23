@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 
+import {AlertService} from '@shared/services/alert.service';
 import {AuthService} from '@shared/services/auth.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -26,9 +28,9 @@ export class RegisterComponent implements OnInit {
   register() {
     this.authService.register(this.form.value)
       .subscribe(
-        res => console.log('registration successful: ', res),
-        error => console.info(error));
-    console.log(this.form);
+        () => this.alertService.success('Registration successful'),
+        error => this.alertService.error(error)
+      )
   }
   cancel() {
     this.cancelRegister.emit(false);

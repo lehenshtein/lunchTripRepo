@@ -13,7 +13,6 @@ export class ApiUrlInterceptor implements HttpInterceptor{
       },
       url: req.url.indexOf('http') === - 1 ? environment.apiUrl + req.url : req.url
     })
-      console.log(req);
     return next.handle(req);
   }
 
