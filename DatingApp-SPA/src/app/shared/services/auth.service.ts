@@ -10,18 +10,16 @@ import {Observable} from "rxjs";
   providedIn: SharedModule
 })
 export class AuthService {
-  baseUrl = 'http://localhost:5000/api/auth/';
-
   constructor(
     private http: HttpClient
   ) {
   }
   register(form: Object): Observable<Object> {
-    return this.http.post(this.baseUrl + 'register', form);
+    return this.http.post('/api/auth/register', form);
   }
 
   login(form: Object): Observable<any> {
-    return this.http.post(this.baseUrl + 'login', form)
+    return this.http.post('/api/auth/login', form)
       .pipe(
         map(res => {
           const user = res;
