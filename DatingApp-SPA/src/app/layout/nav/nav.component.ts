@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 
+import {AlertService} from '@shared/services/alert.service';
 import {AuthService} from '@shared/services/auth.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    public authService: AuthService,
+    private alertService: AlertService
   ) {
   }
 
@@ -26,17 +28,16 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.form.value)
       .subscribe(
-        res => console.log(res),
-        error => console.log(error));
+        () => this.alertService.success('Logged in.'),
+        error => this.alertService.error(error));
   }
 
   loggedIn() {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
   }
 
   logout() {
-    localStorage.removeItem('token');
-    console.log('logged out');
+    this.authService.logout();
+    this.alertService.warning('Logged out');
   }
 }

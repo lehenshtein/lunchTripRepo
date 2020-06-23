@@ -142,7 +142,7 @@
           { "match": "^@shared", "order": 50 },
           { "name": "parent_dir", "match": "^[.][.]", "order": 60 },
           { "name": "current dir", "match": "^[.]", "order": 70 },
-          { "match": "", "order": 30 }
+          { "match": ".*", "order": 30 }
         ]
       }
     ],

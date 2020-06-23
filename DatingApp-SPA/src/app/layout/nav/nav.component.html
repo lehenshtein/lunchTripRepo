@@ -1,35 +1,37 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Dating App</a>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#">Dating App</a>
 
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">Matches</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Lists</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Messages</a>
-    </li>
-  </ul>
-  <div class="dropdown" *ngIf="loggedIn()">
-    <a class="dropdown-toggle text-light">
-      Welcome user
-    </a>
+    <ul class="navbar-nav mr-auto" *ngIf="loggedIn()">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Matches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Lists</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Messages</a>
+      </li>
+    </ul>
+    <div class="dropdown" *ngIf="loggedIn()" dropdown>
+      <a class="dropdown-toggle text-dark" dropdownToggle>
+        Welcome {{authService.decodedToken.unique_name | titlecase}}
+      </a>
 
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit profile</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+      </div>
     </div>
+    <form *ngIf="!loggedIn()" class="form-inline my-2 my-lg-0" [formGroup]="form" (ngSubmit)="login()">
+      <label>
+        <input class="form-control mr-sm-2" formControlName="username" type="text" placeholder="Username">
+      </label>
+      <label>
+        <input class="form-control mr-sm-2" formControlName="password" type="password" placeholder="Password">
+      </label>
+      <button class="btn btn-success my-2 my-sm-0" [disabled]="!form.valid" type="submit">Login</button>
+    </form>
   </div>
-  <form *ngIf="!loggedIn()" class="form-inline my-2 my-lg-0" [formGroup]="form" (ngSubmit)="login()">
-    <label>
-      <input class="form-control mr-sm-2" formControlName="username" type="text" placeholder="Username">
-    </label>
-    <label>
-      <input class="form-control mr-sm-2" formControlName="password" type="password" placeholder="Password">
-    </label>
-    <button class="btn btn-success my-2 my-sm-0" [disabled]="!form.valid" type="submit">Login</button>
-  </form>
 </nav>

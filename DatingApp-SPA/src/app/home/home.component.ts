@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     this.getValues();
   }
   getValues() {
-    this.http.get('http://localhost:5000/api/values')
+    this.http.get('/api/values')
       .subscribe(res => {
           this.values = res;
           console.log(res);
