@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 
 import {AlertService} from '@shared/services/alert.service';
 import {AuthService} from '@shared/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -18,17 +19,23 @@ export class NavComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public authService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
   }
+  adminAllowed() {
+    return this.authService.user.role === 'admin';
+  }
 
   login() {
     this.authService.login(this.form.value)
-      .subscribe(
-        () => this.alertService.success('Logged in.'),
+      .subscribe(() => {
+          this.alertService.success('Logged in.');
+          this.router.navigate(['/members']);
+        },
         error => this.alertService.error(error));
   }
 
@@ -38,6 +45,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/home']);
     this.alertService.warning('Logged out');
   }
 }
