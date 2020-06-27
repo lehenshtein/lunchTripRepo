@@ -1,0 +1,33 @@
+.block-row {
+  display: flex;
+  justify-content: center;
+  height: 20px;
+}
+.block {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: #c865a2;
+  border: 1px solid #631166;
+  cursor: pointer;
+  font-size: 12px;
+}
+.block:hover{
+  background-color: #ab576f;
+}
+.blocked {
+  background-color: #795e3f !important;
+  cursor: not-allowed !important;
+}
+.iterated {
+  background-color: #699ad2;
+}
+.start {
+  background-color: #77c64e!important;
+}
+.end {
+  background-color: #c69a4e;
+}
+.way {
+  background-color: #ff0000;
+}

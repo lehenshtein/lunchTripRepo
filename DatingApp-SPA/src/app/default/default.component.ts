@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import {AuthService} from '@shared/services/auth.service';
 import {BinarySearchService} from '@shared/services/binarysearch.service';
 import {LinkedListService} from '@shared/services/linked-list.service';
 import {SortingService} from '@shared/services/sorting.service';
@@ -29,7 +30,8 @@ export class DefaultComponent implements OnInit {
   constructor(
     private binarySearchService: BinarySearchService,
     private sortingService: SortingService,
-    private linkedListService: LinkedListService
+    private linkedListService: LinkedListService,
+    public authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +48,7 @@ export class DefaultComponent implements OnInit {
 
   public arrayActions() {
     console.log('Quick sort: ', this.sortingService.qsort(this.list));
-    console.log('badQsort sort: ', this.sortingService.badQsort([6,3,8,5,2,9,5,23,76,11,87,5]));
+    console.log('badQsort sort: ', this.sortingService.badQsort([6, 3, 8, 5, 2, 9, 5, 23, 76, 11, 87, 5]));
 
     this.list.sort((a, b) => a - b);
     const newStringArray = this.stringList.map(el => el.toLowerCase()).sort();
