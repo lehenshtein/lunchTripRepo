@@ -1,0 +1,37 @@
+<h3 class="d-flex justify-content-center">
+  SPF algorithm visualisation &nbsp;
+  <button class="btn-warning" (click)="reset()">
+    Reset
+  </button>
+  <button class="btn-warning ml-1" (click)="recreate()">
+    ReCreate
+  </button>
+</h3>
+<div class="row">
+  <div class="col-1 offset-2">
+    Click in the field twice ------------>
+    <div><div class="block"></div> Just a block</div>
+    <div><div class="block blocked"></div> Blocked</div>
+    <div><div class="block iterated"></div> Checked</div>
+    <div><div class="block start"></div> Start</div>
+    <div><div class="block end"></div> Finish</div>
+    <div><div class="block way"></div> Your way</div>
+  </div>
+  <div class="col-6" #field>
+    <div *ngFor="let row of rows; let rowIndex = index" class="block-row">
+      <div *ngFor="let block of row; let blockIndex = index"
+           class="block"
+           [ngClass]="{iterated: block['iterated'], way: block['way'], blocked: block['blocked']}"
+           #blockEl
+           (click)="onSelectBlock(rowIndex, blockIndex, block.blocked, blockEl)">
+        {{rowIndex + ',' + blockIndex}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6 offset-3 text-center mt-1">
+    {{message}}
+    Steps {{steps}}
+  </div>
+</div>

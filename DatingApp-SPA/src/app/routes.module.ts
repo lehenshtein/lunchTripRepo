@@ -19,7 +19,8 @@ export const AppRoutes: Routes = [
       {path: 'members', component: MemberListComponent},
       {path: 'messages', component: MessagesComponent},
       {path: 'lists', component: ListsComponent},
-      {path: 'checker', component: DefaultComponent, canActivate: [AdminGuard]},
+      {path: 'checker', component: DefaultComponent},
+      // {path: 'checker', component: DefaultComponent, canActivate: [AdminGuard]},
     ]
   },
   {path: '**', redirectTo: '', pathMatch: 'full'},
