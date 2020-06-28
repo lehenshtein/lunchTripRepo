@@ -22,22 +22,11 @@ namespace DatingApp.API.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
-        private readonly DataContext _context;
 
-        public AuthController(IAuthRepository repo, IConfiguration config, DataContext context)
+        public AuthController(IAuthRepository repo, IConfiguration config)
         {
             _repo = repo;
             _config = config;
-            _context = context;
-        }
-        // api/auth/user/3
-        [HttpGet("user/{id}")]
-        public async Task<IActionResult> GetUser(int id)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(el => el.Id == id);
-            return Ok( new {
-                role = user.Role
-            });
         }
         // api/auth/register
         [HttpPost("register")]

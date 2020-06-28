@@ -49,7 +49,7 @@ export class AuthService {
     );
   }
   getRole(id: number) {
-    return this.http.get(`/api/auth/user/${id}`);
+    return this.http.get(`/api/users/${id}`);
   }
   loggedIn() {
     const token = localStorage.getItem('token');
