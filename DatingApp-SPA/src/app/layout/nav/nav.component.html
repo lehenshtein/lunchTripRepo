@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-dark bg-info">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['']">Lunch Trip</a>
 
@@ -17,7 +17,7 @@
       </li>
     </ul>
     <div class="dropdown" *ngIf="loggedIn()" dropdown>
-      <a class="dropdown-toggle text-dark" dropdownToggle>
+      <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{authService.decodedToken.unique_name | titlecase}}
       </a>
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {ILinkedList} from '@shared/interfaces/linkedList';
+import {ILinkedList} from '@shared/interfaces/linkedList.interface';
 
 @Injectable({
   providedIn: 'root'
