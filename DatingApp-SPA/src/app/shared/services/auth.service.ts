@@ -43,13 +43,13 @@ export class AuthService {
   setChars(token) {
     this.decodedToken = this.jwtHelper.decodeToken(token);
     this.user.id = this.decodedToken.nameid;
-    this.getRole(this.user.id).subscribe(
+    this.getRole().subscribe(
       (res: any) => this.user.role = res.role,
       error => this.alertService.error(error)
     );
   }
-  getRole(id: number) {
-    return this.http.get(`/api/users/${id}`);
+  getRole() {
+    return this.http.get(`/api/users/${this.user.id}`);
   }
   loggedIn() {
     const token = localStorage.getItem('token');
