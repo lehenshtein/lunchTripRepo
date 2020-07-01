@@ -2,6 +2,7 @@ import {IPhoto} from '@shared/interfaces/photo.interface';
 
 export interface IUser {
   id: number;
+  role: string;
   username: string;
   knownAs: string;
   age: number;

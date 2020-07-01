@@ -2,14 +2,20 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 
+import {CafeModule} from '@app/cafe/cafe.module';
 import {DefaultModule} from '@app/default/default.module';
 import {MembersModule} from '@app/members/members.module';
 import {AppRoutes} from '@app/routes';
 import {JwtModule} from '@auth0/angular-jwt';
-import {AuthService} from '@shared/services/auth.service';
+import {ApiUrlInterceptorProvider} from '@shared/interceptors/apiUrl.interceptor';
+import {ErrorInterceptorProvider} from '@shared/interceptors/error.interceptor';
+import {AuthResolver} from '@shared/resolvers/auth.resolver';
+import {MemberDetailResolver} from '@shared/resolvers/member-detail.resolver';
+import {MemberEditResolver} from '@shared/resolvers/member-edit.resolver';
+import {MemberListResolver} from '@shared/resolvers/member-list.resolver';
 import {SharedModule} from '@shared/shared.module';
 
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
@@ -18,8 +24,8 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {NavComponent} from './layout/nav/nav.component';
-import { ListsComponent } from './lists/lists.component';
-import { MessagesComponent } from './messages/messages.component';
+import {ListsComponent} from './lists/lists.component';
+import {MessagesComponent} from './messages/messages.component';
 import {RegisterComponent} from './register/register.component';
 
 export function tokenGetter() {
@@ -40,6 +46,7 @@ export function tokenGetter() {
     HttpClientModule,
     DefaultModule,
     MembersModule,
+    CafeModule,
     RouterModule.forRoot(AppRoutes),
     SharedModule,
     TabsModule.forRoot(),
@@ -55,7 +62,12 @@ export function tokenGetter() {
     })
   ],
   providers: [
-    AuthService,
+    AuthResolver,
+    MemberDetailResolver,
+    MemberListResolver,
+    MemberEditResolver,
+    ApiUrlInterceptorProvider,
+    ErrorInterceptorProvider,
   ],
   bootstrap: [AppComponent]
 })

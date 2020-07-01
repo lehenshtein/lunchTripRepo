@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 import {AuthService} from '@shared/services/auth.service';
 import {BinarySearchService} from '@shared/services/binarysearch.service';
@@ -31,10 +32,12 @@ export class DefaultComponent implements OnInit {
     private binarySearchService: BinarySearchService,
     private sortingService: SortingService,
     private linkedListService: LinkedListService,
-    public authService: AuthService
+    public authService: AuthService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.route.data.subscribe(data => console.log(data.user));
   }
   public sum(arr: Array<number>): number { // суммирование элементов массива, при каждой
     if (arr.length <= 0) {return 0; }         // итерации, которого, кол-во элементов массива уменьшается на 1
@@ -57,7 +60,7 @@ export class DefaultComponent implements OnInit {
     console.log('Binary search index: ', this.binarySearchService.search(this.list, 31));
     console.log('Recursive search index: ', this.binarySearchService.recursiveSearch(newStringArray, 'f'));
     console.log('Array sum with removing first array el: ', this.sum([1, 2, 3]));
-    console.log('Get linked list elements: ',this.linkedListService.getLinkedListLength(this.linkedList));
+    console.log('Get linked list elements: ', this.linkedListService.getLinkedListLength(this.linkedList));
   }
 
 }

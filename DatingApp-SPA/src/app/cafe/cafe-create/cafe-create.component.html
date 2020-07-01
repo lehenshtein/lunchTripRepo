@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Create cafe</h1>
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="form.dirty" class="alert alert-info">
+        <p><strong>Information: </strong><span class="font-thick">You have unsaved changes!</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img alt="placeholder" class="card-img-top img-thumbnail" src="placeholder">
+        <div class="card-body">
+          <div>
+            <strong>Name:</strong>
+            <p class="font-thick">Name can be here</p>
+          </div>
+          <div>
+            <strong>Location:</strong>
+            <p class="font-thick">Location can be here</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <div class="btn-group d-flex">
+            <button [disabled]="!form.dirty" class="btn btn-success btn-block" form="editForm" type="submit">Save
+              changes
+            </button>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel pb-3">
+        <tabset class="member-tabset">
+          <tab heading="Info">
+            <form (ngSubmit)="createCafe()" [formGroup]="form" id="editForm">
+              <h4>Name</h4>
+              <label class="form-group">
+                <input class="form-control" formControlName="name">
+              </label>
+              <h4>Description</h4>
+              <label>
+                <textarea class="form-control" formControlName="description" rows="6"></textarea>
+              </label>
+            </form>
+          </tab>
+          <tab heading="Photos">
+            <p class="font-thick">Photo edit will go here</p>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
