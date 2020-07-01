@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Your Profile</h1>
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="form.dirty" class="alert alert-info">
+        <p><strong>Information: </strong><span class="font-thick">You have unsaved changes!</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <img alt="{{user.knownAs}}" class="card-img-top img-thumbnail" src="{{user.photoUrl}}">
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p class="font-thick">{{user.city}}, {{user.country}}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p class="font-thick">{{user.age}}, ({{user.dateOfBirth | date}})</p>
+          </div>
+          <div>
+            <strong>Last active:</strong>
+            <p class="font-thick">{{user.lastActive | date}}</p>
+          </div>
+          <div>
+            <strong>Member since:</strong>
+            <p class="font-thick">{{user.created | date}}</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <div class="btn-group d-flex">
+            <button [disabled]="!form.dirty" class="btn btn-success btn-block" form="editForm" type="submit">Save
+              changes
+            </button>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel pb-3">
+        <tabset class="member-tabset">
+          <tab heading="Edit Profile">
+            <form (ngSubmit)="updateUser()" [formGroup]="form" id="editForm">
+              <h4>Description</h4>
+              <label class="d-block">
+                <textarea class="form-control" formControlName="introduction" rows="6"></textarea>
+              </label>
+              <h4>Looking for</h4>
+              <label class="d-block">
+                <textarea class="form-control" formControlName="lookingFor" rows="6"></textarea>
+              </label>
+              <h4>Interests</h4>
+              <label class="d-block">
+                <textarea class="form-control" formControlName="interests" rows="6"></textarea>
+              </label>
+              <h4>Location details:</h4>
+              <div class="form-inline">
+                <label class="pr-2" for="city">City</label>
+                <input class="form-control" formControlName="city" id="city" type="text">
+                <label class="pr-2" for="country">Country</label>
+                <input class="form-control" formControlName="country" id="country" type="text">
+              </div>
+            </form>
+          </tab>
+          <tab heading="Edit Photo">
+            <h4>Interests</h4>
+            <p class="font-thick">{{user.interests}}</p>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

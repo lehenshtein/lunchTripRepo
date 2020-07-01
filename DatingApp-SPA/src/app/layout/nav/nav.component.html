@@ -12,6 +12,9 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a [routerLink]="['/cafe/create']" class="nav-link">Create cafe</a>
+      </li>
       <li class="nav-item" routerLinkActive="active" *ngIf="adminAllowed()">
         <a class="nav-link" [routerLink]="['/checker']">Checker</a>
       </li>
@@ -22,7 +25,7 @@
       </a>
 
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit profile</a>
+        <a [routerLink]="['/member/edit']" class="dropdown-item"><i class="fa fa-user"></i>Edit profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
       </div>
