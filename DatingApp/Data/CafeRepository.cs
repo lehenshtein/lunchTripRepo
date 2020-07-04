@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DatingApp.Data
 {
-    public class DatingRepository : IDatingRepository
+    public class CafeRepository : ICafeRepository
     {
         private readonly DataContext _context;
 
-        public DatingRepository(DataContext context)
+        public CafeRepository(DataContext context)
         {
             _context = context;
         }
@@ -25,24 +25,17 @@ namespace DatingApp.Data
             _context.Remove(entity);
         }
 
-        public async Task<Photo> GetPhoto(int id)
+        public async Task<Cafe> GetCafe(int id)
         {
-            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
-            return photo;
+            var cafe = await _context.Cafe.FirstOrDefaultAsync(cafe => cafe.Id == id);
+            return cafe;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<IEnumerable<Cafe>> GetCafes()
         {
-            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(user => user.Id == id);
-            return user;
+            var cafes = await _context.Cafe.ToListAsync();
+            return cafes;
         }
-
-        public async Task<IEnumerable<User>> GetUsers()
-        {
-            var users = await _context.Users.Include(p => p.Photos).ToListAsync();
-            return users;
-        }
-
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;

@@ -11,7 +11,7 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
   imports: [
     CommonModule,
     TabsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
   ],
   exports: [
     TabsModule,

@@ -8,9 +8,12 @@ import {MemberListComponent} from '@app/members/member-list/member-list.componen
 import {MembersRoutes} from '@app/members/members.routes';
 import {SharedModule} from '@shared/shared.module';
 
+import {FileUploadModule} from 'ng2-file-upload';
+
 import {MemberCardComponent} from './member-card/member-card.component';
 import {MemberDetailComponent} from './member-detail/member-detail.component';
 import {MemberEditComponent} from './member-edit/member-edit.component';
+import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-editor.component';
 
 
 @NgModule({
@@ -18,12 +21,14 @@ import {MemberEditComponent} from './member-edit/member-edit.component';
     MemberListComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    MemberPhotoEditorComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(MembersRoutes),
     SharedModule,
+    FileUploadModule,
     ReactiveFormsModule,
   ],
   providers: [
