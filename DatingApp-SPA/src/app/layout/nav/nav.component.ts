@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 import {AlertService} from '@shared/services/alert.service';
 import {AuthService} from '@shared/services/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -15,6 +15,7 @@ export class NavComponent implements OnInit {
     username: [null, Validators.required],
     password: [null, Validators.required]
   });
+  photoUrl: string;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,7 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.currentPhotoUrl.subscribe(photo => this.photoUrl = photo);
   }
   adminAllowed() {
     return this.authService.user.role === 'admin';
@@ -46,6 +48,5 @@ export class NavComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/home']);
-    this.alertService.warning('Logged out');
   }
 }

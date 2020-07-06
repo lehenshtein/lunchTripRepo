@@ -1,7 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {IPhoto} from '@shared/interfaces/photo.interface';
 import {IUser} from '@shared/interfaces/user.interface';
+import {AlertService} from '@shared/services/alert.service';
+import {AuthService} from '@shared/services/auth.service';
+import {UserService} from '@shared/services/user.service';
 
 import {FileItem, FileUploader} from 'ng2-file-upload';
 
@@ -14,13 +17,18 @@ import {environment} from '../../../environments/environment';
 })
 export class MemberPhotoEditorComponent implements OnInit {
   @Input() user: IUser;
+  @Output() memberPhotoChange = new EventEmitter<string>();
   baseUrl = environment.apiUrl;
   photos: Array<IPhoto>;
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
-  response = '';
+  currentMain: IPhoto;
 
-  constructor() {
+  constructor(
+    private userService: UserService,
+    private alertService: AlertService,
+    private authService: AuthService
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,10 +48,6 @@ export class MemberPhotoEditorComponent implements OnInit {
     });
     this.uploader.onAfterAddingFile = (file: FileItem) => file.withCredentials = false;
 
-    this.uploader.response.subscribe(res => {
-      this.response = res;
-      console.log(res);
-    });
     this.uploader.onSuccessItem = (item, response) => {
       if (response) {
         const res: IPhoto = JSON.parse(response);
@@ -61,6 +65,20 @@ export class MemberPhotoEditorComponent implements OnInit {
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
+  }
+
+  setMainPhoto(photo: IPhoto) {
+    this.userService.setMainPhoto(this.user.id, photo.id).subscribe(
+      () => {
+        this.currentMain = this.photos.filter(el => el.isMain === true)[0];
+        this.currentMain.isMain = false;
+        photo.isMain = true;
+        this.authService.changeMemberPhoto(photo.url);
+        this.authService.currentUser.photoUrl = photo.url;
+        localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
+      },
+      error => this.alertService.error(error)
+    );
   }
 
 }
