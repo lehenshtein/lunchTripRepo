@@ -81,4 +81,17 @@ export class MemberPhotoEditorComponent implements OnInit {
     );
   }
 
+  deletePhoto(id: number) {
+    this.alertService.confirm('Are you sure you want to delete this photo?',
+      () => this.userService.deletePhoto(this.user.id, id).subscribe(() => {
+          const photoToRemove = this.photos.findIndex(p => p.id === id);
+          if (photoToRemove !== -1) {
+            this.photos.splice(photoToRemove, 1);
+            this.alertService.success('Photo has ben deleted');
+          }
+        },
+        () => this.alertService.error('Failed to delete')
+      ));
+  }
+
 }
