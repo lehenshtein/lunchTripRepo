@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 
 import {IUser} from '@shared/interfaces/user.interface';
 import {AlertService} from '@shared/services/alert.service';
+import {AuthService} from '@shared/services/auth.service';
 import {UserService} from '@shared/services/user.service';
 
 @Component({
@@ -14,12 +15,14 @@ import {UserService} from '@shared/services/user.service';
 export class MemberEditComponent implements OnInit {
   user: IUser;
   form: FormGroup;
+  photoUrl: string;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) {
   }
 
@@ -37,6 +40,7 @@ export class MemberEditComponent implements OnInit {
         this.createForm();
       },
     );
+    this.authService.currentPhotoUrl.subscribe(photo => this.photoUrl = photo);
   }
 
   updateUser() {
@@ -58,5 +62,9 @@ export class MemberEditComponent implements OnInit {
       city: [this.user.city, Validators.required],
       country: [this.user.country, Validators.required],
     });
+  }
+
+  updateMainPhoto($event: string) {
+    this.user.photoUrl = $event;
   }
 }

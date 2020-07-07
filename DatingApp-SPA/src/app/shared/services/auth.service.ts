@@ -3,10 +3,11 @@ import {Injectable} from '@angular/core';
 
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {IToken} from '@shared/interfaces/token.interface';
+import {IUser} from '@shared/interfaces/user.interface';
 import {AlertService} from '@shared/services/alert.service';
 import {SharedModule} from '@shared/shared.module';
 
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -18,12 +19,21 @@ export class AuthService {
     id: null,
     role: null
   };
+  currentUser: IUser;
   decodedToken: IToken;
+  currentPhotoUrlSubject = new BehaviorSubject<string>('../../assets/images/user1.png');
+  currentPhotoUrl = this.currentPhotoUrlSubject.asObservable();
+
   constructor(
     private http: HttpClient,
     private alertService: AlertService
   ) {
   }
+
+  changeMemberPhoto(photoUrl: string) {
+    this.currentPhotoUrlSubject.next(photoUrl);
+  }
+
   register(form: object): Observable<object> {
     return this.http.post('/api/auth/register', form);
   }
@@ -35,7 +45,10 @@ export class AuthService {
           const user = res;
           if (user) {
             localStorage.setItem('token', user.token);
+            localStorage.setItem('user', JSON.stringify(user.user));
             this.setChars(user.token);
+            this.currentUser = user.user;
+            this.changeMemberPhoto(this.currentUser.photoUrl);
           }
         })
       );
@@ -57,5 +70,13 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.decodedToken = null;
+    this.currentUser = null;
+    this.user = {
+      id: null,
+      role: null
+    };
+    this.alertService.warning('Logged out');
   }
 }

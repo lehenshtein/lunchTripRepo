@@ -10,7 +10,8 @@
   background-color: #c865a2;
   border: 1px solid #631166;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 10px;
+  color: #000;
 }
 .block:hover{
   background-color: #ab576f;
