@@ -39,8 +39,7 @@ export class CafeCreateComponent implements OnInit {
 
   createCafe() {
     this.cafeService.createCafe(this.form.value)
-      .subscribe(res => {
-          console.log(res);
+      .subscribe(() => {
           this.alertService.success('Trying to create cafe');
           this.form.markAsPristine();
         },

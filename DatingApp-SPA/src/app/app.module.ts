@@ -3,12 +3,9 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterModule} from '@angular/router';
 
-import {CafeModule} from '@app/cafe/cafe.module';
+import {AppRoutingModule} from '@app/app-routing.module';
 import {DefaultModule} from '@app/default/default.module';
-import {MembersModule} from '@app/members/members.module';
-import {AppRoutes} from '@app/routes';
 import {JwtModule} from '@auth0/angular-jwt';
 import {ApiUrlInterceptorProvider} from '@shared/interceptors/apiUrl.interceptor';
 import {ErrorInterceptorProvider} from '@shared/interceptors/error.interceptor';
@@ -42,12 +39,10 @@ export function tokenGetter() {
     MessagesComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     HttpClientModule,
     DefaultModule,
-    MembersModule,
-    CafeModule,
-    RouterModule.forRoot(AppRoutes),
     SharedModule,
     TabsModule.forRoot(),
     ReactiveFormsModule,

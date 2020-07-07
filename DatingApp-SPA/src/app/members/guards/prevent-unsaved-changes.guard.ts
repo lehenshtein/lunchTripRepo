@@ -3,7 +3,9 @@ import {CanDeactivate} from '@angular/router';
 
 import {MemberEditComponent} from '@app/members/member-edit/member-edit.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PreventUnsavedChangesGuard implements CanDeactivate<MemberEditComponent> {
   canDeactivate(component: MemberEditComponent): boolean {
     if (component.form.dirty) {
