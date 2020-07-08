@@ -3,7 +3,9 @@ import {CanDeactivate} from '@angular/router';
 
 import {CafeCreateComponent} from '@app/cafe/cafe-create/cafe-create.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PreventUnsavedChangesGuard implements CanDeactivate<CafeCreateComponent> {
   canDeactivate(component: CafeCreateComponent): boolean {
     if (component.form.dirty) {

@@ -1,10 +1,8 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
 
-import {CafeRoutes} from '@app/cafe/cafe.routes';
-import {PreventUnsavedChangesGuard} from '@app/cafe/guards/prevent-unsaved-changes.guard';
+import {CafeRoutingModule} from '@app/cafe/cafe-routing.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {CafeCreateComponent} from './cafe-create/cafe-create.component';
@@ -16,13 +14,11 @@ import {CafeCreateComponent} from './cafe-create/cafe-create.component';
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(CafeRoutes),
+    CafeRoutingModule,
     SharedModule,
     ReactiveFormsModule,
   ],
-  providers: [
-    PreventUnsavedChangesGuard
-  ]
+  providers: []
 })
 export class CafeModule {
 }

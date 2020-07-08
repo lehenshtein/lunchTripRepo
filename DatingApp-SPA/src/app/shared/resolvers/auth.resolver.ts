@@ -7,7 +7,7 @@ import {AuthService} from '@shared/services/auth.service';
 import {UserService} from '@shared/services/user.service';
 
 import {EMPTY, Observable, of} from 'rxjs';
-import {catchError, mergeMap, take, tap} from 'rxjs/operators';
+import {catchError, mergeMap, take} from 'rxjs/operators';
 
 @Injectable()
 export class AuthResolver implements Resolve<IUser> {
@@ -21,8 +21,7 @@ export class AuthResolver implements Resolve<IUser> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IUser> | IUser {
     return this.userService.getUser(+this.authService.decodedToken.nameid)
-      .pipe(tap(data => console.log(data)),
-        take(1),
+      .pipe(take(1),
         mergeMap((user: IUser) => {
           if (user.role && user.role === 'admin') {
             return of(user.role);

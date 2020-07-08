@@ -1,11 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
 
-import {PreventUnsavedChangesGuard} from '@app/members/guards/prevent-unsaved-changes.guard';
 import {MemberListComponent} from '@app/members/member-list/member-list.component';
-import {MembersRoutes} from '@app/members/members.routes';
+import {MembersRoutingModule} from '@app/members/members-routing.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {FileUploadModule} from 'ng2-file-upload';
@@ -26,13 +24,12 @@ import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-edi
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(MembersRoutes),
+    MembersRoutingModule,
     SharedModule,
     FileUploadModule,
     ReactiveFormsModule,
   ],
   providers: [
-    PreventUnsavedChangesGuard
   ]
 })
 export class MembersModule { }

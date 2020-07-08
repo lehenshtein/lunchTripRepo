@@ -5,13 +5,12 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {IToken} from '@shared/interfaces/token.interface';
 import {IUser} from '@shared/interfaces/user.interface';
 import {AlertService} from '@shared/services/alert.service';
-import {SharedModule} from '@shared/shared.module';
 
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({
-  providedIn: SharedModule
+  providedIn: 'root'
 })
 export class AuthService {
   jwtHelper = new JwtHelperService();
