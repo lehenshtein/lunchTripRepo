@@ -33,8 +33,8 @@ export class AuthService {
     this.currentPhotoUrlSubject.next(photoUrl);
   }
 
-  register(form: object): Observable<object> {
-    return this.http.post('/api/auth/register', form);
+  register(user: IUser): Observable<object> {
+    return this.http.post('/api/auth/register', user);
   }
 
   login(form: object): Observable<any> {

@@ -34,10 +34,12 @@ namespace DatingApp.Helpers
                     options => options.MapFrom(
                             src => src.DateOfBirth.CalculateAge()
                         ));
+            //first value - from, second - to (from UserForUpdateDto - to User) and when using _mapper.Map<User //destination//>(userForRegisterDto //from//)
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<UserForUpdateDto, User>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<UserForRegisterDto, User>();
         }
     }
 }

@@ -15,6 +15,7 @@ import {MemberEditResolver} from '@shared/resolvers/member-edit.resolver';
 import {MemberListResolver} from '@shared/resolvers/member-list.resolver';
 import {SharedModule} from '@shared/shared.module';
 
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 
@@ -41,6 +42,7 @@ export function tokenGetter() {
   imports: [
     AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     DefaultModule,
     SharedModule,
@@ -48,6 +50,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     JwtModule.forRoot({ // we can remove this and use commented method in apiUrl.interceptor
       config: {
         tokenGetter,

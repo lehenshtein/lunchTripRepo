@@ -1,18 +1,97 @@
 <form [formGroup]="form" (ngSubmit)="register()">
   <h2 class="text-center text-primary">Sign Up</h2>
   <hr>
-
+  <!--Gender-->
+  <div class="form-group">
+    <label class="control-label" style="margin-right:10px">I am a: </label>
+    <label class="radio-inline">
+      <input class="mr-3" formControlName="gender" type="radio" value="male">Male
+    </label>
+    <label class="radio-inline ml-3">
+      <input class="mr-3" formControlName="gender" type="radio" value="female">Female
+    </label>
+  </div>
+  <!--  Username-->
   <label class="form-group d-block">
-    <input type="text" class="form-control" formControlName="username" placeholder="Username">
+    <input [ngClass]="{'is-invalid': controls.username.invalid && controls.username.touched}"
+           class="form-control"
+           formControlName="username"
+           placeholder="Username"
+           type="text">
+    <span class="invalid-feedback">Please choose a username from 2 to 14 characters</span>
   </label>
-
+  <!--  Known as-->
   <label class="form-group d-block">
-    <input type="password" class="form-control" formControlName="password" placeholder="Password">
+    <input [ngClass]="{'is-invalid': controls.knownAs.errors && controls.knownAs.touched}" class="form-control"
+           formControlName="knownAs" placeholder="Known as">
+    <span *ngIf="controls.knownAs.touched && controls.knownAs.invalid"
+          class="invalid-feedback">
+      Please choose a knownAs from 2 to 14 characters
+    </span>
+  </label>
+  <!--  Date of birth-->
+  <label class="form-group d-block">
+    <input [bsConfig]="bsConfig" [ngClass]="{'is-invalid': controls.dateOfBirth.errors && controls.dateOfBirth.touched}"
+           bsDatepicker class="form-control" formControlName="dateOfBirth" placeholder="Date of Birth" type="text">
+    <span *ngIf="controls.dateOfBirth.touched && controls.dateOfBirth.hasError('required')"
+          class="invalid-feedback">
+      Date of Birth is required
+    </span>
+  </label>
+  <!--  City-->
+  <label class="form-group d-block">
+    <input [ngClass]="{'is-invalid': controls.city.errors && controls.city.touched}" class="form-control"
+           formControlName="city" placeholder="City">
+    <span *ngIf="controls.city.touched && controls.city.hasError('required')"
+          class="invalid-feedback">
+      City is required
+    </span>
+  </label>
+  <!--Country-->
+  <label class="form-group d-block">
+    <input [ngClass]="{'is-invalid': controls.country.errors && controls.country.touched}" class="form-control"
+           formControlName="country" placeholder="Country">
+    <span *ngIf="controls.country.touched && controls.country.hasError('required')" class="invalid-feedback">Country is required</span>
+  </label>
+  <!--Password-->
+  <label class="form-group d-block">
+    <input [ngClass]="{'is-invalid': controls.password.invalid && controls.password.touched}"
+           class="form-control"
+           formControlName="password"
+           placeholder="Password"
+           type="password">
+    <span *ngIf="controls.password.hasError('required') && controls.password.touched"
+          class="invalid-feedback">
+      Password is required
+    </span>
+    <span *ngIf="controls.password.hasError('minlength') && controls.password.touched"
+          class="invalid-feedback">
+      Password must be at least 4 characters
+    </span>
+    <span *ngIf="controls.password.hasError('maxlength') && controls.password.touched"
+          class="invalid-feedback">
+      Password cannot exceed 14 characters
+    </span>
+  </label>
+  <!--  Required password-->
+  <label class="form-group d-block">
+    <input [ngClass]="{'is-invalid': controls.confirmPassword.invalid && controls.confirmPassword.touched ||
+           controls.confirmPassword.touched && form.hasError('mismatch')}" class="form-control"
+           formControlName="confirmPassword"
+           placeholder="Confirm password"
+           type="password">
+    <span *ngIf="controls.confirmPassword.hasError('required') && controls.confirmPassword.touched"
+          class="invalid-feedback">
+      Password is required
+    </span>
+    <span *ngIf="form.hasError('mismatch') && controls.confirmPassword.touched"
+          class="invalid-feedback">
+      Passwords must match
+    </span>
   </label>
 
   <div class="form-group text-center">
     <button class="btn btn-success" [disabled]="!form.valid" type="submit">Register</button>
     <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
   </div>
-
 </form>
