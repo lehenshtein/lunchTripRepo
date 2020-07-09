@@ -7,6 +7,7 @@ import {MembersRoutingModule} from '@app/members/members-routing.module';
 import {SharedModule} from '@shared/shared.module';
 
 import {FileUploadModule} from 'ng2-file-upload';
+import {TimeagoModule} from 'ngx-timeago';
 
 import {MemberCardComponent} from './member-card/member-card.component';
 import {MemberDetailComponent} from './member-detail/member-detail.component';
@@ -28,8 +29,9 @@ import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-edi
     SharedModule,
     FileUploadModule,
     ReactiveFormsModule,
+    TimeagoModule,
   ],
-  providers: [
-  ]
+  providers: []
 })
-export class MembersModule { }
+export class MembersModule {
+}
