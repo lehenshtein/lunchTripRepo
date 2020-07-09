@@ -21,14 +21,14 @@
     </ul>
     <div class="dropdown" *ngIf="loggedIn()" dropdown>
       <span>
-        <img alt="user_avatar" src="{{photoUrl}}">
+        <img alt="user_avatar" src="{{photoUrl || '../../../assets/images/user1.png'}}">
       </span>
       <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{authService.decodedToken.unique_name | titlecase}}
       </a>
 
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a [routerLink]="['/member/edit']" class="dropdown-item"><i class="fa fa-user mr-2"></i>Edit profile</a>
+        <a [routerLink]="['/members/edit']" class="dropdown-item"><i class="fa fa-user mr-2"></i>Edit profile</a>
         <div class="dropdown-divider"></div>
         <a (click)="logout()" class="dropdown-item"><i class="fa fa-sign-out mr-2"></i>Logout</a>
       </div>

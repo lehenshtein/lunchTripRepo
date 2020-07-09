@@ -3,12 +3,9 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {RouterModule} from '@angular/router';
 
-import {CafeModule} from '@app/cafe/cafe.module';
+import {AppRoutingModule} from '@app/app-routing.module';
 import {DefaultModule} from '@app/default/default.module';
-import {MembersModule} from '@app/members/members.module';
-import {AppRoutes} from '@app/routes';
 import {JwtModule} from '@auth0/angular-jwt';
 import {ApiUrlInterceptorProvider} from '@shared/interceptors/apiUrl.interceptor';
 import {ErrorInterceptorProvider} from '@shared/interceptors/error.interceptor';
@@ -18,6 +15,7 @@ import {MemberEditResolver} from '@shared/resolvers/member-edit.resolver';
 import {MemberListResolver} from '@shared/resolvers/member-list.resolver';
 import {SharedModule} from '@shared/shared.module';
 
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 
@@ -42,17 +40,17 @@ export function tokenGetter() {
     MessagesComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     DefaultModule,
-    MembersModule,
-    CafeModule,
-    RouterModule.forRoot(AppRoutes),
     SharedModule,
     TabsModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     JwtModule.forRoot({ // we can remove this and use commented method in apiUrl.interceptor
       config: {
         tokenGetter,
