@@ -18,6 +18,7 @@ import {SharedModule} from '@shared/shared.module';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {TabsModule} from 'ngx-bootstrap/tabs';
+import {TimeagoModule} from 'ngx-timeago';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -47,6 +48,7 @@ export function tokenGetter() {
     DefaultModule,
     SharedModule,
     TabsModule.forRoot(),
+    TimeagoModule.forRoot(),
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
