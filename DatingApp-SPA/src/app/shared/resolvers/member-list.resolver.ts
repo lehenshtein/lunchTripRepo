@@ -10,18 +10,22 @@ import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class MemberListResolver implements Resolve<IUser[]> {
+  pageNumber = 1;
+  pageSize = 10;
+
   constructor(
     private userService: UserService,
     private router: Router,
     private alertService: AlertService
-  ) {}
+  ) {
+  }
 
   resolve(route: ActivatedRouteSnapshot): Observable<IUser[]> {
-    return this.userService.getUsers()  // it subscribes automatically
+    return this.userService.getUsers(this.pageNumber, this.pageSize)  // it subscribes automatically
       .pipe(catchError(() => {
         this.alertService.error('Problem retrieving data');
         this.router.navigate(['/home']);
-        return of (null);
+        return of(null);
       }));
   }
 }
