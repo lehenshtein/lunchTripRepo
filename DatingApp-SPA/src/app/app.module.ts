@@ -29,7 +29,6 @@ import {ListsComponent} from './lists/lists.component';
 import {MessagesComponent} from './messages/messages.component';
 import {RegisterComponent} from './register/register.component';
 import {ListResolver} from "@shared/resolvers/lists.resolver";
-import {MembersModule} from "@app/members/members.module";
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -66,7 +65,6 @@ export function tokenGetter() {
         blacklistedRoutes: ['localhost:5000/api/auth']
       }
     }),
-    MembersModule,
     FormsModule
   ],
   providers: [
