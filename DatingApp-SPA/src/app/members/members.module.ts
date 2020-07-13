@@ -11,7 +11,6 @@ import {ButtonsModule} from 'ngx-bootstrap/buttons';
 import {PaginationModule} from 'ngx-bootstrap/pagination';
 import {TimeagoModule} from 'ngx-timeago';
 
-import {MemberCardComponent} from './member-card/member-card.component';
 import {MemberDetailComponent} from './member-detail/member-detail.component';
 import {MemberEditComponent} from './member-edit/member-edit.component';
 import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-editor.component';
@@ -20,7 +19,6 @@ import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-edi
 @NgModule({
   declarations: [
     MemberListComponent,
-    MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
     MemberPhotoEditorComponent
@@ -37,7 +35,6 @@ import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-edi
     ButtonsModule,
   ],
   exports: [
-    MemberCardComponent
   ],
   providers: []
 })
