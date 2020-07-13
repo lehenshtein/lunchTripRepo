@@ -17,7 +17,7 @@ export class UserService {
   ) {
   }
 
-  getUsers(page?, itemsPerPage?, userParams?): Observable<IPaginatedResult<IUser>> {
+  getUsers(page?, itemsPerPage?, userParams?, likesParam?): Observable<IPaginatedResult<IUser>> {
     const paginatedResult = new IPaginatedResult<IUser>();
     let params = new HttpParams();
     if (page && itemsPerPage) {
@@ -29,6 +29,12 @@ export class UserService {
       params = params.append('maxAge', userParams.maxAge);
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
+    }
+    if (likesParam === 'Likers') {
+      params = params.append('likers', 'true');
+    }
+    if (likesParam === 'Likees') {
+      params = params.append('likees', 'true');
     }
     return this.http.get<Array<IUser>>('/api/users', {observe: 'response', params}).pipe(
       map(res => {
@@ -55,5 +61,8 @@ export class UserService {
 
   deletePhoto(userId: number, photoId: number) {
     return this.http.delete(`/api/users/${userId}/photos/${photoId}`);
+  }
+  sendLike(id: number, recipientId: number) {
+    return this.http.post(`/api/users/${id}/like/${recipientId}`, {});
   }
 }

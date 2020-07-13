@@ -7,6 +7,7 @@ import {HomeComponent} from '@app/home/home.component';
 import {ListsComponent} from '@app/lists/lists.component';
 import {MessagesComponent} from '@app/messages/messages.component';
 import {AuthResolver} from '@shared/resolvers/auth.resolver';
+import {ListResolver} from "@shared/resolvers/lists.resolver";
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -21,7 +22,7 @@ const routes: Routes = [
         loadChildren: () => import('./members/members.module').then(m => m.MembersModule),
       },
       {path: 'messages', component: MessagesComponent},
-      {path: 'lists', component: ListsComponent},
+      {path: 'lists', component: ListsComponent, resolve: {users: ListResolver}},
       {path: 'cafe', loadChildren: () => import('./cafe/cafe.module').then(m => m.CafeModule)},
       {path: 'checker', component: DefaultComponent, resolve: {user: AuthResolver}}, // auth resolver for admin role checking
     ]
