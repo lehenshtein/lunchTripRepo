@@ -18,25 +18,28 @@ import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-edi
 
 
 @NgModule({
-  declarations: [
-    MemberListComponent,
-    MemberCardComponent,
-    MemberDetailComponent,
-    MemberEditComponent,
-    MemberPhotoEditorComponent
-  ],
-  imports: [
-    CommonModule,
-    MembersRoutingModule,
-    SharedModule,
-    FileUploadModule,
-    ReactiveFormsModule,
-    TimeagoModule,
-    PaginationModule,
-    FormsModule,
-    ButtonsModule,
-  ],
-  providers: []
+    declarations: [
+        MemberListComponent,
+        MemberCardComponent,
+        MemberDetailComponent,
+        MemberEditComponent,
+        MemberPhotoEditorComponent
+    ],
+    imports: [
+        CommonModule,
+        MembersRoutingModule,
+        SharedModule,
+        FileUploadModule,
+        ReactiveFormsModule,
+        TimeagoModule,
+        PaginationModule,
+        FormsModule,
+        ButtonsModule,
+    ],
+    exports: [
+        MemberCardComponent
+    ],
+    providers: []
 })
 export class MembersModule {
 }

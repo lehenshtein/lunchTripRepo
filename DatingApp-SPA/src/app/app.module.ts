@@ -1,6 +1,6 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -28,6 +28,8 @@ import {NavComponent} from './layout/nav/nav.component';
 import {ListsComponent} from './lists/lists.component';
 import {MessagesComponent} from './messages/messages.component';
 import {RegisterComponent} from './register/register.component';
+import {ListResolver} from "@shared/resolvers/lists.resolver";
+import {MembersModule} from "@app/members/members.module";
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -63,7 +65,9 @@ export function tokenGetter() {
         whitelistedDomains: ['localhost:5000'],
         blacklistedRoutes: ['localhost:5000/api/auth']
       }
-    })
+    }),
+    MembersModule,
+    FormsModule
   ],
   providers: [
     AuthResolver,
@@ -72,6 +76,7 @@ export function tokenGetter() {
     MemberEditResolver,
     ApiUrlInterceptorProvider,
     ErrorInterceptorProvider,
+    ListResolver,
   ],
   bootstrap: [AppComponent]
 })
