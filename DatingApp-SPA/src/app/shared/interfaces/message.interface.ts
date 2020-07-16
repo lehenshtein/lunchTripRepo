@@ -9,5 +9,5 @@ export interface IMessage {
   content: string;
   isRead: boolean;
   dateRead: Date;
-  messageSent: Date;
+  messageSend: Date;
 }

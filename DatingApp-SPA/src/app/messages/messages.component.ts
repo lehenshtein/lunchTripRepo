@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+
 import {IMessage} from "@shared/interfaces/message.interface";
 import {IPaginatedResult, IPagination} from "@shared/interfaces/pagination.interface";
 import {UserService} from "@shared/services/user.service";
-import {ActivatedRoute} from "@angular/router";
 import {AlertService} from "@shared/services/alert.service";
 import {AuthService} from "@shared/services/auth.service";
 
@@ -14,7 +15,7 @@ import {AuthService} from "@shared/services/auth.service";
 export class MessagesComponent implements OnInit {
   messages: Array<IMessage>
   pagination: IPagination;
-  messageContainer: 'Unread';
+  messageContainer = 'Unread';
 
   constructor(
     private userService: UserService,
