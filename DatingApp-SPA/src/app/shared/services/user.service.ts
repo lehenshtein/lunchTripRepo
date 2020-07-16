@@ -3,6 +3,8 @@ import {Injectable} from '@angular/core';
 
 import {IPaginatedResult} from '@shared/interfaces/pagination.interface';
 import {IUser} from '@shared/interfaces/user.interface';
+import {IMessage} from "@shared/interfaces/message.interface";
+
 
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -39,8 +41,9 @@ export class UserService {
     return this.http.get<Array<IUser>>('/api/users', {observe: 'response', params}).pipe(
       map(res => {
         paginatedResult.result = res.body;
-        if (res.headers.get('Pagination')) {
-          paginatedResult.pagination = JSON.parse(res.headers.get('Pagination'));
+        const pagination = res.headers.get('Pagination');
+        if (pagination) {
+          paginatedResult.pagination = JSON.parse(pagination);
         }
         return paginatedResult;
       })
@@ -64,5 +67,24 @@ export class UserService {
   }
   sendLike(id: number, recipientId: number) {
     return this.http.post(`/api/users/${id}/like/${recipientId}`, {});
+  }
+  getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
+    const paginatedResult: IPaginatedResult<IMessage> = new IPaginatedResult<IMessage>();
+    let params = new HttpParams();
+    params = params.append('MessageContainer', messageContainer);
+    if (page && itemsPerPage) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+    return this.http.get<Array<IMessage>>(`/api/users/${id}/messages`, {observe: 'response', params}).pipe(
+      map(res => {
+        paginatedResult.result = res.body;
+        const pagination = res.headers.get('Pagination');
+        if (pagination) {
+          paginatedResult.pagination = JSON.parse(pagination);
+        }
+        return paginatedResult;
+      })
+    )
   }
 }

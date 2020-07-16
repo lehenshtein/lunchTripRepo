@@ -26,9 +26,9 @@ import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {NavComponent} from './layout/nav/nav.component';
 import {ListsComponent} from './lists/lists.component';
-import {MessagesComponent} from './messages/messages.component';
 import {RegisterComponent} from './register/register.component';
 import {ListResolver} from "@shared/resolvers/lists.resolver";
+import {MessagesResolver} from "@shared/resolvers/messages.resolver";
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -40,8 +40,7 @@ export function tokenGetter() {
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    ListsComponent,
-    MessagesComponent
+    ListsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -75,6 +74,7 @@ export function tokenGetter() {
     ApiUrlInterceptorProvider,
     ErrorInterceptorProvider,
     ListResolver,
+    MessagesResolver
   ],
   bootstrap: [AppComponent]
 })
