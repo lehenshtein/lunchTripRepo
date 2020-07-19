@@ -14,6 +14,7 @@ import {TimeagoModule} from 'ngx-timeago';
 import {MemberDetailComponent} from './member-detail/member-detail.component';
 import {MemberEditComponent} from './member-edit/member-edit.component';
 import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-editor.component';
+import { MemberMessagesComponent } from './member-messages/member-messages.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {MemberPhotoEditorComponent} from './member-photo-editor/member-photo-edi
     MemberListComponent,
     MemberDetailComponent,
     MemberEditComponent,
-    MemberPhotoEditorComponent
+    MemberPhotoEditorComponent,
+    MemberMessagesComponent
   ],
   imports: [
     CommonModule,

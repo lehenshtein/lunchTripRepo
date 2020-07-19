@@ -87,4 +87,16 @@ export class UserService {
       })
     )
   }
+  getMessageThread(id: number, recipientId: number) {
+    return this.http.get<Array<IMessage>>(`/api/users/${id}/messages/thread/${recipientId}`);
+  }
+  sendMessage(id: number, message: any) {
+    return this.http.post(`/api/users/${id}/messages`, message);
+  }
+  deleteMessage(messageId: number, userId: number) {
+    return this.http.post(`/api/users/${userId}/messages/${messageId}`, {});
+  }
+  markAsRead(messageId: number, userId: number) {
+    return this.http.post(`/api/users/${userId}/messages/${messageId}/read`, {}).subscribe();
+  }
 }

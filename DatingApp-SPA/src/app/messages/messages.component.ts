@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 
 import {IMessage} from "@shared/interfaces/message.interface";
@@ -22,7 +22,8 @@ export class MessagesComponent implements OnInit {
     private route: ActivatedRoute,
     private alertService: AlertService,
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -30,6 +31,7 @@ export class MessagesComponent implements OnInit {
       this.pagination = data.messages.pagination;
     })
   }
+
   loadMessages() {
     this.userService.getMessages(this.authService.user.id, this.pagination.currentPage, this.pagination.itemsPerPage, this.messageContainer)
       .subscribe((res: IPaginatedResult<IMessage>) => {
@@ -37,6 +39,20 @@ export class MessagesComponent implements OnInit {
         this.pagination = res.pagination;
       }, error => this.alertService.error(error))
   }
+
+  deleteMessage($event, messageId: number) {
+    $event.stopPropagation();
+    this.alertService.confirm('Are you sure you want to delete this message?', () => {
+      this.userService.deleteMessage(messageId, this.authService.user.id).subscribe(() => {
+        const deletingMessage = this.messages.findIndex(el => el.id === messageId);
+        if (deletingMessage !== -1) {
+          this.messages.splice(deletingMessage, 1);
+          this.alertService.success('Message has been deleted');
+        }
+      }, error => this.alertService.error(error))
+    });
+  }
+
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadMessages()

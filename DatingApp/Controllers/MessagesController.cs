@@ -66,7 +66,8 @@ namespace DatingApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessage(int userId, MessageForCreationDto messageForCreationDto)
         {
-            if (userNotAuthorized(userId))
+            var sender = await _repo.GetUser(userId);
+            if (userNotAuthorized(sender.Id))
                 return Unauthorized();
             messageForCreationDto.SenderId = userId;
             var recipient = await _repo.GetUser(messageForCreationDto.RecipientId);
@@ -74,12 +75,47 @@ namespace DatingApp.Controllers
                 return BadRequest("Could not find user");
             var message = _mapper.Map<Message>(messageForCreationDto);
             _repo.Add(message);
-            var messageToReturn = _mapper.Map<MessageForCreationDto>(message);
+           
             if (await _repo.SaveAll())
+            {
+                var messageToReturn = _mapper.Map<MessageToReturnDto>(message);
                 return CreatedAtRoute("GetMessage", new { userId, id = message.Id }, messageToReturn);
+            }
+                
             throw new Exception("Creating message failed on save");
 
 
+        }
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DeleteMessage(int id, int userId)
+        {
+            if (userNotAuthorized(userId))
+                return Unauthorized();
+            var messageFromRepo = await _repo.GetMessage(id);
+            if (messageFromRepo.SenderId == userId)
+                messageFromRepo.SenderDeleted = true;
+            if (messageFromRepo.RecipientId == userId)
+                messageFromRepo.RecipientDeleted = true;
+            if (messageFromRepo.RecipientDeleted && messageFromRepo.SenderDeleted)
+            {
+                _repo.Delete(messageFromRepo);
+            }
+            if (await _repo.SaveAll())
+                return NoContent();
+            throw new Exception("Error deleting message");
+        }
+        [HttpPost("{id}/read")]
+        public async Task<IActionResult> MarkMessageAsRead(int id, int userId)
+        {
+            if (userNotAuthorized(userId))
+                return Unauthorized();
+            var message = await _repo.GetMessage(id);
+            if (message.RecipientId != userId)
+                return Unauthorized();
+            message.IsRead = true;
+            message.DateRead = DateTime.Now;
+            await _repo.SaveAll();
+            return NoContent();
         }
         private bool userNotAuthorized(int userId)
         {
