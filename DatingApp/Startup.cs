@@ -39,7 +39,7 @@ namespace DatingApp
             services.AddDbContext<DataContext>(x =>
             {
                 x.UseLazyLoadingProxies();
-                x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             ConfigureServices(services);
@@ -49,7 +49,7 @@ namespace DatingApp
             services.AddDbContext<DataContext>(x =>
             {
                 x.UseLazyLoadingProxies();
-                x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             ConfigureServices(services);
@@ -89,7 +89,7 @@ namespace DatingApp
             {
                 app.UseDeveloperExceptionPage();
             } else
-            {
+            { // to easily debug from asure comment from here
                 app.UseExceptionHandler(builder =>
                 {
                     builder.Run(async context =>
@@ -103,9 +103,11 @@ namespace DatingApp
                         }
                     });
                 });
+                // to here
             }
 
-            //app.UseHttpsRedirection();
+            //app.UseDeveloperExceptionPage(); // for test purposes uncomment this for azure debug
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
